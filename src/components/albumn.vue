@@ -1,81 +1,50 @@
-<script setup lang="ts">
-
-import Albumn_card from "./albumn_card.vue";
-
+<script lang="ts" setup>
+import albumn_card from './albumn_card.vue'
 import axios from "axios";
-import {defineComponent} from "vue";
+import { onMounted, ref} from "vue";
 
-interface Albumn {
-  id: string;
-  name:string;
-  image_id:string;
+interface card {
+  name: string,
+  pic: string,
+  last_update: string,
+  created: string,
+  file_count: number
 }
-interface albumn_id {
-  id: string;
-}
 
-defineComponent({
-  name: 'Albumn_select',
-  data() {
-    return {
-      images: [] as Albumn[],
-      photo_ids:[] as albumn_id[]
-    };
-
-  },
-  async mounted() {
-    await this.postRequest()
-  },
-  computed: {
-    columns(): Albumn[][] {
-      const columns: Albumn[][] = [[], [], []];
-
-      this.photo_ids.forEach((photo_id,index) =>{
-        this.images.push({src:"https://lh3.google.com/u/7/d/"+photo_id.id,height:1})
-      });
-      columns[index%4].push(image);
-      return columns;
+const albumn_cards = ref<card[]>([]);
+onMounted(async () => {
+  try {
+    const response = await axios.get("https://script.google.com/macros/s/AKfycbzic3VXCrlQjelTHwtY0jtVl1H1lQoi45zn0u5zClskTtJhUWH4mRahJW8dn8Fs30ze/exec?name=cos");
+    albumn_cards.value = response.data;
+  } catch (error:any) {
+    if (error.request.status == 503) {
+      setTimeout(() => {
+        console.error(error);
+      }, 100);
+    } else {
+      console.error(error);
     }
-  },
-  methods:{
-    postRequest(){
-      axios.get("https://script.google.com/macros/s/AKfycbyrG720TP1U9rnoyny_5ZUJQXj8BwZ5G-pl0o4CHUS5i3XA5wEW1Kdn7Nnm5lNdqDAv/exec?id=10Dks7QAUd8iNZ7XhcezilzfjWpGNhgaD")
-          .then((res: any) => {
-            res = JSON.stringify(res.data)
-            res = JSON.parse(res)
-            this.photo_ids = res;
-
-          })
-          // Manage errors if
-          .catch(error => {
-            if (error.request.status == 503) {
-              setTimeout(() => {
-                console.error(error);
-              }, 0.1);
-            }
-          })
-    },
   }
 });
-
-
-
 </script>
+
+
+
 
 <template>
   <div>
     <div class="container_fluid">
-      <div class="row">
-        <div class="column" v-for="(columnImages, columnIndex) in columns" :key="columnIndex">
-          <albumn_card  v-for="(columnImages, columnIndex) in images "title="test" text="test" image_url="https://lh3.google.com/u/7/d/1eiLdj2E0FwqlNSKnDF96S0_4K3EoB2GA=w1825-h970-iv1" update_date ="2024-5-5" created ="2024-5-4" />
-        </div>
-
-
+      <div class="row justify-content-around">
+        <p>{{albumn_cards}}</p>
+        <albumn_card v-for="(card, cardIndex) in albumn_cards" :key="cardIndex"
+                     :created="card.created"
+                     :image_url="card.pic"
+                     :title="card.name"
+                     :update_date="card.last_update" v-bind:file_count="card.file_count"/>
       </div>
 
 
     </div>
-
 
 
   </div>
@@ -90,9 +59,26 @@ defineComponent({
   padding: 0 4px;
 }
 
-.column {
-  flex: 25%;
-  max-width: 50%;
-  padding: 0 4px;
+.col-sm-4 {
+  padding: 0 12px;
+}
+
+@media screen and (max-width: 1360px) {
+  .col-sm-4 {
+    flex: 40%;
+    max-width: 100%;
+
+
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .col-sm-4 {
+    flex: 100%;
+    max-width: 100%;
+
+
+  }
 }
 </style>
+

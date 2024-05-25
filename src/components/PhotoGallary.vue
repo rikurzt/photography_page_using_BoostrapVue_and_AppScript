@@ -3,8 +3,8 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div class="column" v-for="(columnImages, columnIndex) in columns" :key="columnIndex">
-          <img v-for="(image, imageIndex) in columnImages" :src="image.src" :key="imageIndex" />
+        <div v-for="(columnImages, columnIndex) in columns" :key="columnIndex" class="column">
+          <img v-for="(image, imageIndex) in columnImages" :key="imageIndex" :src="image.src" class="img-fluid"/>
         </div>
       </div>
     </div>
@@ -12,13 +12,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
 import axios from "axios";
 
 interface Image {
   src: string;
   height: number;
 }
+
 interface photo_id {
   id: string;
 }
@@ -28,7 +29,7 @@ export default defineComponent({
   data() {
     return {
       images: [] as Image[],
-      photo_ids:[] as photo_id[]
+      photo_ids: [] as photo_id[]
     };
 
   },
@@ -39,8 +40,8 @@ export default defineComponent({
     columns(): Image[][] {
       const columns: Image[][] = [[], [], []];
       const columnHeights: number[] = [0, 0, 0];
-      this.photo_ids.forEach((photo_id) =>{
-        this.images.push({src:"https://lh3.google.com/u/7/d/"+photo_id.id,height:1})
+      this.photo_ids.forEach((photo_id) => {
+        this.images.push({src: "https://lh3.google.com/u/7/d/" + photo_id.id, height: 1})
 
       });
       this.images.forEach((image) => {
@@ -52,8 +53,8 @@ export default defineComponent({
       return columns;
     }
   },
-  methods:{
-    postRequest(){
+  methods: {
+    postRequest() {
       axios.get("https://script.google.com/macros/s/AKfycbyrG720TP1U9rnoyny_5ZUJQXj8BwZ5G-pl0o4CHUS5i3XA5wEW1Kdn7Nnm5lNdqDAv/exec?id=10Dks7QAUd8iNZ7XhcezilzfjWpGNhgaD")
           .then((res: any) => {
             res = JSON.stringify(res.data)
@@ -112,16 +113,20 @@ export default defineComponent({
 
 @media screen and (max-width: 800px) {
   .column {
-    flex: 50%;
+    flex: 45%;
     max-width: 50%;
+
+
   }
 }
 
 @media screen and (max-width: 600px) {
   .column {
+
     flex: 100%;
     max-width: 100%;
   }
+
   .column img {
     filter: grayscale(0) brightness(1);
   }

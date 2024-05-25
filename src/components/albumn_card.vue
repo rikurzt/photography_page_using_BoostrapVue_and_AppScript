@@ -1,22 +1,23 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 
- defineProps<{ title: string,image_url:string,update_date:string,created:string }>()
+defineProps<{ title: string, image_url: string, file_count: number, update_date: string, created: string }>()
 
 
 </script>
 
 <template>
   <div class="col-md-4">
-    <div class="profile-card-6"><img v-bind:src="image_url" class="img img-responsive">
+    <div class="profile-card-6"><img class="img img-responsive" v-bind:src="image_url">
       <div class="profile-name">
-        {{title}}Esdfsfsdf</div>
+        {{ title }}Esdfsfsdf
+      </div>
 
       <div class="profile-overview">
         <div class="profile-overview">
           <div class="row">
             <div class="col-xs-4">
-              <h3>1</h3>
+              <h3>{{ file_count }}</h3>
               <p>Files</p>
             </div>
             <div class="col-xs-4">
@@ -24,7 +25,7 @@
               <p>Last Update</p>
             </div>
             <div class="col-xs-4">
-              <h3>{{created}}</h3>
+              <h3>{{ created }}</h3>
               <p>Cteated</p>
             </div>
           </div>
@@ -57,16 +58,22 @@ a:hover,
 a:focus {
   color: inherit;
 }
+
 .container-fluid,
 .container {
   max-width: 1200px;
 }
 
-.row{
+.row {
   display: flex;
   justify-content: flex-start;
 }
-.col-xs-4{
+
+.col-md-4 {
+  padding: 0 12px;
+}
+
+.col-xs-4 {
   flex: 1;
 }
 
@@ -83,6 +90,7 @@ a:focus {
 
 .profile-card-6 img {
   width: 100%;
+  height: 100%;
   margin-top: 8px;
   vertical-align: middle;
   border-radius: 5px;
@@ -92,7 +100,7 @@ a:focus {
 }
 
 .profile-card-6 .profile-name {
-  width:20%;
+  width: 20%;
   height: 20%;
   position: absolute;
   top: 6px;
