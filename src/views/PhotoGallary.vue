@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>{{ title }}</h1>
-    <div class="container-fluid">
+    <div class="container-fluid" ref="gallery" >
       <div class="row">
         <div v-for="(columnImages, columnIndex) in columns" :key="columnIndex" class="column">
           <img v-for="(image, imageIndex) in columnImages" :key="imageIndex" :src="image.src" class="img-fluid"/>
@@ -22,6 +22,7 @@
 import {defineComponent} from 'vue';
 import axios from "axios";
 
+
 interface Image {
   src: string;
   height: number;
@@ -36,11 +37,13 @@ export default defineComponent({
   data() {
     return {
       images: [] as Image[],
-      photo_ids: [] as photo_id[]
+      photo_ids: [] as photo_id[],
+      show: true
     };
 
   },
   async mounted() {
+    this.showLoading()
     await this.postRequest()
   },
   computed: {
@@ -56,12 +59,13 @@ export default defineComponent({
         columns[minHeightIndex].push(image);
         columnHeights[minHeightIndex] += image.height;
       });
-
+      this.show = false;
       return columns;
     }
   },
   methods: {
     postRequest() {
+      this.show = true;
       axios.get("https://script.google.com/macros/s/AKfycbyrG720TP1U9rnoyny_5ZUJQXj8BwZ5G-pl0o4CHUS5i3XA5wEW1Kdn7Nnm5lNdqDAv/exec?id="+this.id)
           .then((res: any) => {
             res = JSON.stringify(res.data)
@@ -78,6 +82,14 @@ export default defineComponent({
             }
           })
     },
+    showLoading(){
+      let loader = this.$loading.show({
+        container: <object>this.$refs.gallery,
+      });
+      setTimeout(() => {
+        loader.hide();
+      },3000)
+    }
     /*
     getImageHeight(url: string): Promise<number> {
       return new Promise((resolve, reject) => {
