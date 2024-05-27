@@ -1,13 +1,14 @@
 <script setup lang="ts">
 
-import PhotoGallary from './PhotoGallary.vue'
-defineProps<{ msg: string }>()
+
+import Albumn from "../components/albumn.vue";
+
 
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-  <PhotoGallary />
+
+  <albumn/>
 </template>
 
 <style scoped>

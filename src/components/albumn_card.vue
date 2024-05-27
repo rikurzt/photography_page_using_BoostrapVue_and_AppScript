@@ -1,16 +1,30 @@
 <script lang="ts" setup>
 
 
-defineProps<{ title: string, image_url: string, file_count: number, update_date: string, created: string }>()
+import {useRouter} from "vue-router";
 
+const props =defineProps<{ title: string, image_url: string, file_count: number, update_date: string, created: string,id:string }>()
+/*link to gallary*/
+const router = useRouter();
+
+function gotoGallary(){
+
+  router.push({
+    name:"PhotoGallary",
+    params:{
+      title:props.title,
+      id:props.id,
+    }
+  });
+}
 
 </script>
 
 <template>
-  <div class="col-md-4">
+  <div class="col-md-4" @click="gotoGallary">
     <div class="profile-card-6"><img class="img img-responsive" v-bind:src="image_url">
       <div class="profile-name">
-        {{ title }}Esdfsfsdf
+        {{ title }}
       </div>
 
       <div class="profile-overview">
@@ -78,8 +92,8 @@ a:focus {
 }
 
 .profile-card-6 {
-  max-width: 400px;
-  max-height: 300px;
+  width: 400px;
+  height: 300px;
   border-radius: 5px;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -89,6 +103,7 @@ a:focus {
 }
 
 .profile-card-6 img {
+  object-fit:cover;
   width: 100%;
   height: 100%;
   margin-top: 8px;

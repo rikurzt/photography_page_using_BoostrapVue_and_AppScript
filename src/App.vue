@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import Albumn from "./components/albumn.vue";
+
+import AlbumnGallary from "./views/AlbumnGallary.vue";
 </script>
 
 <template>
-  <albumn/>
-  <HelloWorld msg="Test Gallary" />
+
+  <albumn-gallary/>
+  <router-view>
+  </router-view>
+
+
+
 </template>
 
 <style scoped>

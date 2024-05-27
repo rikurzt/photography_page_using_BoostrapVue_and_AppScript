@@ -3,7 +3,9 @@ import albumn_card from './albumn_card.vue'
 import axios from "axios";
 import { onMounted, ref} from "vue";
 
+
 interface card {
+  id:string,
   name: string,
   pic: string,
   last_update: string,
@@ -26,8 +28,11 @@ onMounted(async () => {
     }
   }
 });
-</script>
 
+
+
+
+</script>
 
 
 
@@ -40,7 +45,7 @@ onMounted(async () => {
                      :created="card.created"
                      :image_url="card.pic"
                      :title="card.name"
-                     :update_date="card.last_update" v-bind:file_count="card.file_count"/>
+                     :update_date="card.last_update" v-bind:file_count="card.file_count" :id="card.id"/>
       </div>
 
 

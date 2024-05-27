@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <h1>{{ title }}</h1>
     <div class="container-fluid">
       <div class="row">
         <div v-for="(columnImages, columnIndex) in columns" :key="columnIndex" class="column">
@@ -10,6 +10,13 @@
     </div>
   </div>
 </template>
+
+
+<script lang="ts" setup>
+
+  defineProps<{ title: string, id: string }>()
+
+</script>
 
 <script lang="ts">
 import {defineComponent} from 'vue';
@@ -55,7 +62,7 @@ export default defineComponent({
   },
   methods: {
     postRequest() {
-      axios.get("https://script.google.com/macros/s/AKfycbyrG720TP1U9rnoyny_5ZUJQXj8BwZ5G-pl0o4CHUS5i3XA5wEW1Kdn7Nnm5lNdqDAv/exec?id=10Dks7QAUd8iNZ7XhcezilzfjWpGNhgaD")
+      axios.get("https://script.google.com/macros/s/AKfycbyrG720TP1U9rnoyny_5ZUJQXj8BwZ5G-pl0o4CHUS5i3XA5wEW1Kdn7Nnm5lNdqDAv/exec?id="+this.id)
           .then((res: any) => {
             res = JSON.stringify(res.data)
             res = JSON.parse(res)
