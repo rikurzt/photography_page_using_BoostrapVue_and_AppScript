@@ -4,8 +4,7 @@ import AlbumnGallary from "./views/AlbumnGallary.vue";
 </script>
 
 <template>
-
-  <albumn-gallary/>
+  
   <router-view>
   </router-view>
 

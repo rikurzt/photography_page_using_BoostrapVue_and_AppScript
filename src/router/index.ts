@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import PhotoGallary from '../views/PhotoGallary.vue';
 import AlbumnGallary from "../views/AlbumnGallary.vue";
 
 const routes = [
@@ -10,9 +9,9 @@ const routes = [
         component: AlbumnGallary
     },
     {
-        path: '/PhotoGallary/:id',
+        path: '/PhotoGallary/:id/:title',
         name: 'PhotoGallary',
-        component: PhotoGallary,
+        component: import("../views/PhotoGallary.vue"),
         props: true
     }
 ];
