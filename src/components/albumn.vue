@@ -2,7 +2,6 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import albumn_card from './albumn_card.vue'
 import axios from "axios";
 import { ref} from "vue";
 import Albumn_card from "./albumn_card.vue";

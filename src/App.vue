@@ -1,11 +1,13 @@
 <script setup lang="ts">
 
 import AlbumnGallary from "./views/AlbumnGallary.vue";
+
 </script>
 
 <template>
   
   <router-view>
+    <AlbumnGallary />
   </router-view>
 
 

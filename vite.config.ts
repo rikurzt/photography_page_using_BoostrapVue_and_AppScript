@@ -7,4 +7,8 @@ export default defineConfig({
   define: {
     "process.env": {},
   },
+  ssr: {
+    // TODO: workaround until they support native ESM
+    noExternal: ['workbox-window', /vue-i18n/, /element-plus/],
+  },
 })

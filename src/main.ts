@@ -12,3 +12,4 @@ createApp(App).use(router).use(LoadingPlugin, {
     opacity:1,
     loader: 'dots',
 }).mount('#app')
+
